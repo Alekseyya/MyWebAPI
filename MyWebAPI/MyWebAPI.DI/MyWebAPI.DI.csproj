@@ -45,12 +45,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependencyContainer.cs" />
+    <Compile Include="NinjectRegistrations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MyWebAPI.BL\MyWebAPI.BL.csproj">
+      <Project>{76186501-634d-4a01-a7f3-e1cadbe60480}</Project>
+      <Name>MyWebAPI.BL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyWebAPI\MyWebAPI.DL.csproj">
       <Project>{88a8ae4b-ae97-4ab6-aa2d-f024eed6e408}</Project>
       <Name>MyWebAPI.DL</Name>

@@ -47,10 +47,6 @@
     <Compile Include="Services\Intefaces\IClientService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyWebAPI.DI\MyWebAPI.DI.csproj">
-      <Project>{a6919d8c-92c1-4f58-9762-c60bf4f11320}</Project>
-      <Name>MyWebAPI.DI</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MyWebAPI\MyWebAPI.DL.csproj">
       <Project>{88A8AE4B-AE97-4AB6-AA2D-F024EED6E408}</Project>
       <Name>MyWebAPI.DL</Name>

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using MyWebAPI.BL.ModelsContract;
 using MyWebAPI.BL.Services.Intefaces;
-using MyWebAPI.DI;
 using WebAPI.DAL.Repositories.Base;
 using MyWebAPI.Entities;
 
@@ -10,9 +9,9 @@ namespace MyWebAPI.BL.Services
     public class ClientService : IClientService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public ClientService()
+        public ClientService(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = DependencyContainer.Get<IUnitOfWork>();
+            _unitOfWork = unitOfWork;
         }
         public void AddClient(ClientContract client)
         {
