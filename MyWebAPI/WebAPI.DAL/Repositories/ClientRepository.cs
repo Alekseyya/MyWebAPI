@@ -1,6 +1,8 @@
 ﻿
 using System;
+using System.Data.Entity;
 using System.Linq;
+using MyWebAPI.Context;
 using MyWebAPI.Entities;
 using WebAPI.DAL.Repositories.Base;
 
@@ -8,29 +10,66 @@ namespace WebAPI.DAL.Repositories
 {
     public class ClientRepository : IClientRepository
     {
+        private readonly MyWebApiContext _context;
+
+        public ClientRepository(MyWebApiContext context)
+        {
+            _context = context;
+        }
         public void Create(Client item)
         {
-            throw new NotImplementedException();
+            _context.Clients.Add(item);
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            Client client = _context.Clients.FirstOrDefault(o => o.Id == id);
+            if (client != null)
+            {
+                _context.Clients.Remove(client);
+                _context.SaveChanges();
+            }
         }
 
         public IQueryable<Client> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Clients.AsQueryable();
         }
 
         public Client GetItemById(int id)
         {
-            throw new NotImplementedException();
+            var client = _context.Clients.FirstOrDefault(x => x.Id == id);
+            if (client != null)
+                return client;
+            else
+            {
+                return null;
+            }
         }
 
         public void Update(Client item)
         {
-            throw new NotImplementedException();
+            var client = _context.Clients.FirstOrDefault(o => o.Id == item.Id);
+            bool isModified = false;
+
+            if (client.FirstName != item.FirstName)
+            {
+                client.FirstName= item.FirstName;
+                isModified = true;
+            }
+
+            if (client.LastName != item.LastName)
+            {
+                client.LastName = item.LastName;
+                isModified = true;
+            }
+
+            if (isModified)
+            {
+                _context.Entry(client).State = EntityState.Modified;
+                _context.SaveChanges();
+            }
         }
     }
 }
