@@ -51,11 +51,21 @@
   <ItemGroup>
     <Compile Include="Context\MyWebAPIContext.cs" />
     <Compile Include="Entities\Client.cs" />
+    <Compile Include="Migrations\201711101215238_firstInit.cs" />
+    <Compile Include="Migrations\201711101215238_firstInit.Designer.cs">
+      <DependentUpon>201711101215238_firstInit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201711101215238_firstInit.resx">
+      <DependentUpon>201711101215238_firstInit.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
