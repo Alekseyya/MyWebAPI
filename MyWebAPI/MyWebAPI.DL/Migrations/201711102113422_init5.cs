@@ -1,9 +1,9 @@
-namespace MyWebAPI.Migrations
+namespace MyWebAPI.DL.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class firstInit : DbMigration
+    public partial class init5 : DbMigration
     {
         public override void Up()
         {
@@ -12,8 +12,8 @@ namespace MyWebAPI.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        FirstName = c.String(nullable: false, maxLength: 25),
-                        LastName = c.String(nullable: false, maxLength: 25),
+                        FirstName = c.String(nullable: false),
+                        LastName = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             

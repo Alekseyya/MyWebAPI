@@ -47,8 +47,8 @@
     <Compile Include="Services\Intefaces\IClientService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyWebAPI\MyWebAPI.DL.csproj">
-      <Project>{88A8AE4B-AE97-4AB6-AA2D-F024EED6E408}</Project>
+    <ProjectReference Include="..\MyWebAPI.DL\MyWebAPI.DL.csproj">
+      <Project>{d6e8f453-f464-4501-bdbe-6b3bed43bcc5}</Project>
       <Name>MyWebAPI.DL</Name>
     </ProjectReference>
     <ProjectReference Include="..\WebAPI.DAL\WebAPI.DAL.csproj">

@@ -56,10 +56,6 @@
       <Project>{76186501-634d-4a01-a7f3-e1cadbe60480}</Project>
       <Name>MyWebAPI.BL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyWebAPI\MyWebAPI.DL.csproj">
-      <Project>{88a8ae4b-ae97-4ab6-aa2d-f024eed6e408}</Project>
-      <Name>MyWebAPI.DL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\WebAPI.DAL\WebAPI.DAL.csproj">
       <Project>{4ae6ef1b-27ba-445f-a1f7-fdbdd4763229}</Project>
       <Name>WebAPI.DAL</Name>

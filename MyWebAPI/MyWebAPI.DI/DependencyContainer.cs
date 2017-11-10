@@ -11,18 +11,18 @@ namespace MyWebAPI.DI
 {
     public static class DependencyContainer
     {
-        private static IKernel _kernel;
+        //private static IKernel _kernel;
 
-        static DependencyContainer()
-        {
-            _kernel = new StandardKernel();
-            _kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InTransientScope();
-            //_kernel.bind.to.....
+        //static DependencyContainer()
+        //{
+        //    _kernel = new StandardKernel();
+        //    _kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InTransientScope();
+        //    //_kernel.bind.to.....
 
-        }
-        public static T Get<T>()
-        {
-            return _kernel.Get<T>();
-        }
+        //}
+        //public static T Get<T>()
+        //{
+        //    return _kernel.Get<T>();
+        //}
     }
 }

@@ -57,12 +57,14 @@
     <Compile Include="Repositories\UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyWebAPI\MyWebAPI.DL.csproj">
-      <Project>{88A8AE4B-AE97-4AB6-AA2D-F024EED6E408}</Project>
+    <ProjectReference Include="..\MyWebAPI.DL\MyWebAPI.DL.csproj">
+      <Project>{D6E8F453-F464-4501-BDBE-6B3BED43BCC5}</Project>
       <Name>MyWebAPI.DL</Name>
     </ProjectReference>
   </ItemGroup>

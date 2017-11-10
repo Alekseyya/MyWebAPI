@@ -44,6 +44,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -159,6 +160,10 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -175,6 +180,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
@@ -266,9 +272,21 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MyWebAPI.BL\MyWebAPI.BL.csproj">
+      <Project>{76186501-634D-4A01-A7F3-E1CADBE60480}</Project>
+      <Name>MyWebAPI.BL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyWebAPI.DI\MyWebAPI.DI.csproj">
       <Project>{A6919D8C-92C1-4F58-9762-C60BF4F11320}</Project>
       <Name>MyWebAPI.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyWebAPI.DL\MyWebAPI.DL.csproj">
+      <Project>{D6E8F453-F464-4501-BDBE-6B3BED43BCC5}</Project>
+      <Name>MyWebAPI.DL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebAPI.DAL\WebAPI.DAL.csproj">
+      <Project>{4AE6EF1B-27BA-445F-A1F7-FDBDD4763229}</Project>
+      <Name>WebAPI.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

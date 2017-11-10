@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Управление общими сведениями о сборке осуществляется с помощью 
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
-[assembly: AssemblyTitle("MyWebAPI")]
+[assembly: AssemblyTitle("MyWebAPI.DL")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MyWebAPI")]
+[assembly: AssemblyProduct("MyWebAPI.DL")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Следующий GUID служит для идентификации библиотеки типов, если этот проект будет видимым для COM
-[assembly: Guid("88a8ae4b-ae97-4ab6-aa2d-f024eed6e408")]
+[assembly: Guid("d6e8f453-f464-4501-bdbe-6b3bed43bcc5")]
 
 // Сведения о версии сборки состоят из следующих четырех значений:
 //

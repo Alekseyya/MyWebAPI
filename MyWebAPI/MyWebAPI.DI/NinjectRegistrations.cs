@@ -10,8 +10,8 @@ namespace MyWebAPI.DI
     {
         public override void Load()
         {
-            Bind<IClientService>().To<ClientService>();
-            Bind<IUnitOfWork>().To<UnitOfWork>();
+            //Bind<IClientService>().To<ClientService>();
+            //Bind<IUnitOfWork>().To<UnitOfWork>();
         }
     }
 }

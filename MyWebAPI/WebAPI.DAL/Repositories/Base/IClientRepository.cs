@@ -1,5 +1,5 @@
-﻿using MyWebAPI.Entities;
-
+﻿
+using MyWebAPI.DL.Entities;
 
 namespace WebAPI.DAL.Repositories.Base
 {

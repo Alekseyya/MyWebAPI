@@ -1,11 +1,11 @@
 ﻿using System.Data.Entity;
-using MyWebAPI.Entities;
+using MyWebAPI.DL.Entities;
 
-namespace MyWebAPI.Context
+namespace MyWebAPI.DL.Context
 {
-     public class MyWebApiContext : DbContext
+    public class MyDbConnection: DbContext
     {
-        public MyWebApiContext()
+        public MyDbConnection()
             : base("DbContext")
         { }
         public DbSet<Client> Clients { get; set; }
@@ -14,10 +14,11 @@ namespace MyWebAPI.Context
         {
             modelBuilder.Configurations.Add(new ClientConfiguration());
         }
+
         public class DatabaseInitializer
-            : CreateDatabaseIfNotExists<MyWebApiContext>
+            : CreateDatabaseIfNotExists<MyDbConnection>
         {
-            public override void InitializeDatabase(MyWebApiContext context)
+            public override void InitializeDatabase(MyDbConnection context)
             {
 
             }

@@ -1,18 +1,18 @@
 ﻿
+using MyWebAPI.DL.Context;
 using System;
 using System.Data.Entity;
 using System.Linq;
-using MyWebAPI.Context;
-using MyWebAPI.Entities;
+using MyWebAPI.DL.Entities;
 using WebAPI.DAL.Repositories.Base;
 
 namespace WebAPI.DAL.Repositories
 {
     public class ClientRepository : IClientRepository
     {
-        private readonly MyWebApiContext _context;
+        private readonly MyDbConnection _context;
 
-        public ClientRepository(MyWebApiContext context)
+        public ClientRepository(MyDbConnection context)
         {
             _context = context;
         }
@@ -34,6 +34,7 @@ namespace WebAPI.DAL.Repositories
 
         public IQueryable<Client> GetAll()
         {
+            var aa = _context.Clients.ToList();
             return _context.Clients.AsQueryable();
         }
 

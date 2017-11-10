@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using MyWebAPI.BL.ModelsContract;
 using MyWebAPI.BL.Services.Intefaces;
+using MyWebAPI.DL.Entities;
+using WebAPI.DAL.Repositories;
 using WebAPI.DAL.Repositories.Base;
-using MyWebAPI.Entities;
 
 namespace MyWebAPI.BL.Services
 {
@@ -11,8 +12,12 @@ namespace MyWebAPI.BL.Services
         private readonly IUnitOfWork _unitOfWork;
         public ClientService(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = unitOfWork;
+            _unitOfWork = new UnitOfWork();
         }
+        //public ClientService()
+        //{
+        //    _unitOfWork = new UnitOfWork();
+        //}
         public void AddClient(ClientContract client)
         {
             var clientTmp = new Client()

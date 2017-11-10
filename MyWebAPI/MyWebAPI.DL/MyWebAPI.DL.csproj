@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{88A8AE4B-AE97-4AB6-AA2D-F024EED6E408}</ProjectGuid>
+    <ProjectGuid>{D6E8F453-F464-4501-BDBE-6B3BED43BCC5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MyWebAPI</RootNamespace>
-    <AssemblyName>MyWebAPI</AssemblyName>
+    <RootNamespace>MyWebAPI.DL</RootNamespace>
+    <AssemblyName>MyWebAPI.DL</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -49,22 +49,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context\MyWebAPIContext.cs" />
+    <Compile Include="Context\MyDbConnection.cs" />
     <Compile Include="Entities\Client.cs" />
-    <Compile Include="Migrations\201711101215238_firstInit.cs" />
-    <Compile Include="Migrations\201711101215238_firstInit.Designer.cs">
-      <DependentUpon>201711101215238_firstInit.cs</DependentUpon>
+    <Compile Include="Migrations\201711102113422_init5.cs" />
+    <Compile Include="Migrations\201711102113422_init5.Designer.cs">
+      <DependentUpon>201711102113422_init5.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201711101215238_firstInit.resx">
-      <DependentUpon>201711101215238_firstInit.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711102113422_init5.resx">
+      <DependentUpon>201711102113422_init5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
