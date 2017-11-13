@@ -25,6 +25,7 @@ namespace MyWebAPI.Api.Controllers
             //return new string[] { "value1", "value2" };
             var clients = _service.GetAllClients();
             var list = new List<string>();
+            //jhksjdhf
             foreach (var client in clients)
             {
                 list.Add(client.FirstName);
