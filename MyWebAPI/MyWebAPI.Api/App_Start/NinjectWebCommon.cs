@@ -1,3 +1,4 @@
+using MyWebAPI.DI;
 using Ninject.Web.Common.WebHost;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(MyWebAPI.Api.App_Start.NinjectWebCommon), "Start")]
@@ -51,7 +52,13 @@ namespace MyWebAPI.Api.App_Start
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
-                RegisterServices(kernel);
+                #region Правильный вариант
+
+                //RegisterServices(kernel);
+
+                #endregion
+                NinjectRegistrations.RegisterServices(kernel);
+
                 return kernel;
             }
             catch
@@ -67,8 +74,8 @@ namespace MyWebAPI.Api.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IClientService>().To<ClientService>();
-            kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
+            //kernel.Bind<IClientService>().To<ClientService>();
+            //kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
         }
     }
 }

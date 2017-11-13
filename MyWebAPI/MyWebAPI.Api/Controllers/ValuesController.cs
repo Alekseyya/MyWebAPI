@@ -14,18 +14,13 @@ namespace MyWebAPI.Api.Controllers
         {
             _service = service;
         }
-        //public ValuesController()
-        //{
-        //    _service = new ClientService();
-        //}
 
         // GET api/values
         public IEnumerable<string> Get()
         {
-            //return new string[] { "value1", "value2" };
             var clients = _service.GetAllClients();
             var list = new List<string>();
-            //jhksjdhf
+            
             foreach (var client in clients)
             {
                 list.Add(client.FirstName);

@@ -2,6 +2,10 @@
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using MyWebAPI.DI;
+using Ninject;
+using Ninject.Modules;
+using Ninject.Web.WebApi;
 
 
 namespace MyWebAPI.Api
