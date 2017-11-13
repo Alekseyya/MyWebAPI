@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <link href='@Url.Content("~/Content/themes/base/all.css")' rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="table">
+        <table id="myTable">
+            <thead>
+                <tr>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>Ссылка</th>
+                </tr>
+            </thead>
+            <tbody id="clients"></tbody>
+        </table>
+        <button onclick="getClients()">Load</button>
+    </div>
+    <form id="form1" method="post" action="api/values/addclient">
+        <div>
+            <label for="status">Имя</label>
+        </div>
+        <div>
+            <input type="text" name="FirstName" class="add__firstName">
+        </div>
+        <div>
+            <label for="status">Фамилия</label>
+        </div>
+        <div>
+            <input type="text" name="LastName" class="add__lastName">
+        </div>
+        <div>
+            <input type="submit" value="Submit" />
+        </div>
+    </form>
+
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript">
+        function getClients() {
+            $.getJSON("api/values",
+                function (data) {
+                    $('#clients').empty();     
+                    
+                    $.each(data, function (key, val) {                        
+                        var newRowContent = "<td>"+ val.FirstName + "</td><td>"+ val.LastName + "</td>"
+            + "<td> <input type='button' id='deleteButton' value= " + key + ">"+ "</input>";
+
+                        $("<tr>" + newRowContent + "</tr>").appendTo($('#clients'));
+
+                    });
+                });
+            }
+                        
+            $(document).ready(getClients);
+
+            $("#form1").submit(function () {
+                $.post('api/values/addclient', $('#form1').serialize(),             
+                    "json"
+                    );
+                    getClients(); 
+                    
+            });            
+
+            $(function () {
+                $("#deleteButton").click(function () {
+                    alert('clicked!');
+                });
+            });          
+    </script>
+    
+</body>
+</html>

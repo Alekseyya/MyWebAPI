@@ -40,18 +40,30 @@ namespace MyWebAPI.Api.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void AddClient(Client client)
         {
+            if (client != null)
+            {
+                var newClient = Mapper.Map<Client, ClientContract>(client);
+                _service.AddClient(newClient);
+            }
         }
 
-        [HttpPut]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+        //[HttpPost]
+        //public void Post([FromBody]string value)
+        //{
+        //    var aa = value;
+        //}
+
+        //[HttpPut]
+        //public void Put(int id, [FromBody]string value)
+        //{
+        //}
 
         [HttpDelete]
         public void Delete(int id)
         {
+            var aa = "asd";
         }
     }
 }
