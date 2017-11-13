@@ -27,11 +27,16 @@ namespace MyWebAPI.Api.Controllers
         }
 
         // GET api/values/5
-        public string Get(int id)
+        public Client Get(int id)
         {
-            //var findClient = 
-            //var client = Mapper.Map<Client, ClientContract>(_service.GetClientById(id));
-            return "value";
+            var findClient = _service.GetClientById(id);
+            var client = new Client();
+            if (findClient != null)
+            {
+                client = Mapper.Map<ClientContract, Client>(findClient);
+                return client;
+            }
+            return null;
         }
 
         [HttpPost]

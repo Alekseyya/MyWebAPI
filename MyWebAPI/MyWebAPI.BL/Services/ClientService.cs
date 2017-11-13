@@ -60,6 +60,7 @@ namespace MyWebAPI.BL.Services
                     FirstName = client.FirstName,
                     LastName = client.LastName
                 };
+                return clientContract;
             }
             return null;
         }

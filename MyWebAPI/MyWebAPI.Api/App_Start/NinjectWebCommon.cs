@@ -15,8 +15,6 @@ namespace MyWebAPI.Api.App_Start
     using Ninject.Web.Common;
     using BL.Services.Intefaces;
     using BL.Services;
-    using WebAPI.DAL.Repositories.Base;
-    using WebAPI.DAL.Repositories;
 
     public static class NinjectWebCommon 
     {

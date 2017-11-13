@@ -285,14 +285,6 @@
       <Project>{A6919D8C-92C1-4F58-9762-C60BF4F11320}</Project>
       <Name>MyWebAPI.DI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyWebAPI.DL\MyWebAPI.DL.csproj">
-      <Project>{D6E8F453-F464-4501-BDBE-6B3BED43BCC5}</Project>
-      <Name>MyWebAPI.DL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WebAPI.DAL\WebAPI.DAL.csproj">
-      <Project>{4AE6EF1B-27BA-445F-A1F7-FDBDD4763229}</Project>
-      <Name>WebAPI.DAL</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
