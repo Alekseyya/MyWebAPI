@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using MyWebAPI.Api.App_Start;
 using MyWebAPI.DI;
 using Ninject;
 using Ninject.Modules;
@@ -20,6 +21,7 @@ namespace MyWebAPI.Api
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+            AutoMapperApiConfiguration.Configure();
 
             //NinjectModule registrations = new NinjectRegistrations();
             //var kernel = new StandardKernel(registrations);

@@ -2,6 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using AutoMapper;
+using MyWebAPI.Api.Models;
+using MyWebAPI.BL.ModelsContract;
 using MyWebAPI.BL.Services;
 using Ninject.Web.WebApi.Filter;
 
@@ -16,35 +19,32 @@ namespace MyWebAPI.Api.Controllers
         }
 
         // GET api/values
-        public IEnumerable<string> Get()
+        public IEnumerable<Client> Get()
         {
-            var clients = _service.GetAllClients();
-            var list = new List<string>();
-            
-            foreach (var client in clients)
-            {
-                list.Add(client.FirstName);
-            }
-            return list;
+            var users =
+                Mapper.Map<IEnumerable<ClientContract>, List<Client>>(_service.GetAllClients());
+            return users;
         }
 
         // GET api/values/5
         public string Get(int id)
         {
+            //var findClient = 
+            //var client = Mapper.Map<Client, ClientContract>(_service.GetClientById(id));
             return "value";
         }
 
-        // POST api/values
+        [HttpPost]
         public void Post([FromBody]string value)
         {
         }
 
-        // PUT api/values/5
+        [HttpPut]
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE api/values/5
+        [HttpDelete]
         public void Delete(int id)
         {
         }
