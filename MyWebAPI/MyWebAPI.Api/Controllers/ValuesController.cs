@@ -54,7 +54,7 @@ namespace MyWebAPI.Api.Controllers
         [HttpPost]
         public void DeleteClient([FromBody]string id)
         {
-           var aa = 0;
+            var aa = 0;
         }
 
         //[HttpPost]
