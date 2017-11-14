@@ -40,22 +40,7 @@
     </form>
 
 
-    <ul id=listClients></ul>
-    
-    <ul id=list>
-        <li>Item 1</li>
-        <li>Item 2</li>
-        <li>Item 3</li>
-        <li>Item 4</li>
-        <li>Item 5</li>
-        <li>Item 6</li>
-        <li>Item 7</li>
-        <li>Item 8</li>
-        <li>Item 9</li>
-        <li>Item 10</li>
-    </ul>  
-
-      
+    <ul id=listClients></ul>  
 
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
     <script type="text/javascript">
@@ -98,82 +83,93 @@
             selectionTr.remove();            
         });  
 
-        $(document).ready(getClientsInList);
         
-            function getClientsInList() {
-                $.getJSON("api/values/get",
-                    function (data) {
-                        $('#listClients').empty();
+        
+        var promise = new Promise((resolve, reject) => {
+            $(document).ready(getClientsInList);
+                function getClientsInList() {
+                    $.getJSON("api/values/get",
+                        function (data) {
+                            $('#listClients').empty();
 
-                        $.each(data, function (key, val) {
-                            var newRowContent = val.FirstName + " " + val.LastName;
+                            $.each(data, function (key, val) {
+                                var newRowContent = val.FirstName + " " + val.LastName;
 
-                            $("<li>" + newRowContent + "</li>").appendTo($('#listClients'));
+                                $("<li>" + newRowContent + "</li>").appendTo($('#listClients'));
 
+                            });
+                            resolve("result");
                         });
-                    });
-            }  
-
-            var aa=  $('#listClients').children('li').size()
-            console.log(aa);
-            
-    </script>
-    <script type="text/javascript">
-        
-        $(document).ready(function () {
-
-                var show_per_page = 5;
-                var number_of_items = $('#list').children('li').size();
-                var number_of_pages = Math.ceil(number_of_items / show_per_page);
-
-                console.log(number_of_items);
-                console.log(number_of_pages);
-
-                $('body').append('<div class=controls></div><input id=current_page type=hidden><input id=show_per_page type=hidden>');
-                $('#current_page').val(0);
-                $('#show_per_page').val(show_per_page);
-
-                var navigation_html = '<a class="prev" onclick="previous()">Prev</a>';
-                var current_link = 0;
-                while (number_of_pages > current_link) {
-                    navigation_html += '<a class="page" onclick="go_to_page(' + current_link + ')" longdesc="' + 
-                                        current_link + '">' + (current_link + 1) + '</a>';
-                    current_link++;
                 }
-                navigation_html += '<a class="next" onclick="next()">Next</a>';
-
-                $('.controls').html(navigation_html);
-                $('.controls .page:first').addClass('active');
-
-                $('#list').children().css('display', 'none');
-                $('#list').children().slice(0, show_per_page).css('display', 'block');
-
-            });
-
-            function go_to_page(page_num) {
-                var show_per_page = parseInt($('#show_per_page').val(), 0);
-                start_from = page_num * show_per_page;
-                end_on = start_from + show_per_page;
-                $('#list').children().css('display', 'none').slice(start_from, end_on).css('display', 'block');
-                $('.page[longdesc=' + page_num + ']').addClass('active').siblings('.active').removeClass('active');
-                $('#current_page').val(page_num);
-            }
-
-            function previous() {
-                new_page = parseInt($('#current_page').val(), 0) - 1;                
-                if ($('.active').prev('.page').length == true) {
-                    go_to_page(new_page);
-                }
-            }
-
-            function next() {
-                new_page = parseInt($('#current_page').val(), 0) + 1;
                 
-                if ($('.active').next('.page').length == true) {
-                    go_to_page(new_page);
-                }
-            }
-    </script>
-    
+            }); 
+                promise
+                        .then(
+                        result => {
+                            updatePaggination();
+                            alert("Fulfilled: " + "Ввыполнилось успешно"); // result - аргумент resolve
+                        },
+                        error => {
+                            // вторая функция - запустится при вызове reject
+                            alert("Rejected: " + error); // error - аргумент reject
+                        }  ); 
+
+
+                        function updatePaggination() {
+                                $(document).ready(function () {
+                                    var show_per_page = 5;
+                                    var number_of_items = $('#listClients').children('li').size();
+                                    var number_of_pages = Math.ceil(number_of_items / show_per_page);
+
+                                    console.log(number_of_items);
+                                    console.log(number_of_pages);
+
+                                    $('body').append('<div class=controls></div><input id=current_page type=hidden><input id=show_per_page type=hidden>');
+                                    $('#current_page').val(0);
+                                    $('#show_per_page').val(show_per_page);
+
+                                    var navigation_html = '<a class="prev" onclick="previous()">Prev</a>';
+                                    var current_link = 0;
+                                    while (number_of_pages > current_link) {
+                                        navigation_html += '<a class="page" onclick="go_to_page(' + current_link + ')" longdesc="' +
+                                            current_link + '">' + (current_link + 1) + '</a>';
+                                        current_link++;
+                                    }
+                                    navigation_html += '<a class="next" onclick="next()">Next</a>';
+
+                                    $('.controls').html(navigation_html);
+                                    $('.controls .page:first').addClass('active');
+
+                                    $('#listClients').children().css('display', 'none');
+                                    $('#listClients').children().slice(0, show_per_page).css('display', 'block');
+
+                                });                                
+                            }
+
+                            function go_to_page(page_num) {                                    
+                                    var show_per_page = parseInt($('#show_per_page').val(), 0);
+                                    start_from = page_num * show_per_page;
+                                    end_on = start_from + show_per_page;
+                                    $('#listClients').children().css('display', 'none').slice(start_from, end_on).css('display', 'block');
+                                    $('.page[longdesc=' + page_num + ']').addClass('active').siblings('.active').removeClass('active');
+                                    $('#current_page').val(page_num);
+                                }
+
+                                function previous() {
+                                    new_page = parseInt($('#current_page').val(), 0) - 1;
+                                    if ($('.active').prev('.page').length == true) {
+                                        go_to_page(new_page);
+                                    }
+                                }
+
+                                function next() {
+                                    new_page = parseInt($('#current_page').val(), 0) + 1;
+
+                                    if ($('.active').next('.page').length == true) {
+                                        go_to_page(new_page);
+                                    }
+                                }
+
+    </script>   
 </body>
 </html>
