@@ -76,7 +76,7 @@
             console.log(buttonValue);            
            
             $.ajax({
-                    url: 'http://localhost:54058/api/values/' + buttonValue,
+                    url: 'api/values/' + buttonValue,
                     type: 'Delete'                                     
                 });
             selectionTr.remove();            
