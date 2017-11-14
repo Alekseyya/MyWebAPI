@@ -37,39 +37,51 @@
             <input type="submit" value="Submit" />
         </div>
     </form>
+    <button>Жми</button>
+    <button>Жми2</button>
 
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
     <script type="text/javascript">
         function getClients() {
             $.getJSON("api/values",
                 function (data) {
-                    $('#clients').empty();     
-                    
-                    $.each(data, function (key, val) {                        
-                        var newRowContent = "<td>"+ val.FirstName + "</td><td>"+ val.LastName + "</td>"
-            + "<td> <input type='button' id='deleteButton' value= " + key + ">"+ "</input>";
+                    $('#clients').empty();
+
+                    $.each(data, function (key, val) {
+                        var newRowContent = "<td id='firstName'>" + val.FirstName + 
+                                            "</td><td id='lastName'>" + val.LastName + "</td>"
+                            + "<td> <input type='button' id='deleteButton' value= " + key + ">" + "</input>";
 
                         $("<tr>" + newRowContent + "</tr>").appendTo($('#clients'));
 
                     });
                 });
-            }
-                        
-            $(document).ready(getClients);
+        }
 
-            $("#form1").submit(function () {
-                $.post('api/values/addclient', $('#form1').serialize(),             
-                    "json"
-                    );
-                    getClients(); 
-                    
-            });            
+        $(document).ready(getClients);
 
-            $(function () {
-                $("#deleteButton").click(function () {
-                    alert('clicked!');
+        $("#form1").submit(function () {
+            $.post('api/values/addclient', $('#form1').serialize(),
+                "json"
+            );
+            getClients();
+
+        });
+
+        $('#myTable').on('click', 'input[type="button"]', function (e) {            
+            var selectionTr =$(this).closest('tr');
+            var FirstName = $(this).closest('tr').children('#firstName').text();
+            var LastName = $(this).closest('tr').children('#lastName').text();
+            var buttonValue = $(this).attr("value");
+            console.log(buttonValue);            
+           
+            $.ajax({
+                    url: 'http://localhost:54058/api/values/' + buttonValue,
+                    type: 'Delete'                                     
                 });
-            });          
+            selectionTr.remove();            
+        });
+
     </script>
     
 </body>

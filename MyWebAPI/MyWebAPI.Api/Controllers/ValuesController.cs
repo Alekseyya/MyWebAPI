@@ -1,6 +1,7 @@
 ﻿using MyWebAPI.BL.Services.Intefaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using AutoMapper;
 using MyWebAPI.Api.Models;
@@ -63,7 +64,11 @@ namespace MyWebAPI.Api.Controllers
         [HttpDelete]
         public void Delete(int id)
         {
-            var aa = "asd";
+            var client = _service.GetClientById(id);
+            if (client != null)
+            {
+                _service.DeleteClient(id);
+            }
         }
     }
 }
