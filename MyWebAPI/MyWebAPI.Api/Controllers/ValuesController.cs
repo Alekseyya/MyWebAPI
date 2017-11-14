@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web.Http;
 using AutoMapper;
 using MyWebAPI.Api.Models;
@@ -43,23 +44,29 @@ namespace MyWebAPI.Api.Controllers
         [HttpPost]
         public void AddClient(Client client)
         {
-            if (client != null)
+            if (client != null && client.FirstName!=null && client.LastName!=null)
             {
                 var newClient = Mapper.Map<Client, ClientContract>(client);
                 _service.AddClient(newClient);
             }
         }
 
+        [HttpPost]
+        public void DeleteClient([FromBody]string id)
+        {
+           var aa = 0;
+        }
+
         //[HttpPost]
-        //public void Post([FromBody]string value)
+        //public void DeleteClient([FromBody]string firstName)
         //{
-        //    var aa = value;
+        //    var aa = 0;
         //}
 
-        //[HttpPut]
-        //public void Put(int id, [FromBody]string value)
-        //{
-        //}
+        [HttpPut]
+        public void Put(int id, [FromBody]string value)
+        {
+        }
 
         [HttpDelete]
         public void Delete(int id)

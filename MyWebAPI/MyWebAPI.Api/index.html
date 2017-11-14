@@ -68,18 +68,28 @@
 
         });
 
+
         $('#myTable').on('click', 'input[type="button"]', function (e) {            
             var selectionTr =$(this).closest('tr');
-            var FirstName = $(this).closest('tr').children('#firstName').text();
-            var LastName = $(this).closest('tr').children('#lastName').text();
+            // var FirstName = $(this).closest('tr').children('#firstName').text();
+            // var LastName = $(this).closest('tr').children('#lastName').text();
             var buttonValue = $(this).attr("value");
-            console.log(buttonValue);            
-           
+            console.log(buttonValue);               
             $.ajax({
-                    url: 'api/values/' + buttonValue,
-                    type: 'Delete'                                     
+                    url: "api/values/addclient",
+                    type: "POST",
+                    data: JSON.stringify(
+                        { FirstName: "Valera", LastName: "Shahed" }                        
+                    ),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json"                    
                 });
-            selectionTr.remove();            
+
+            // $.ajax({
+            //         url: 'api/values/' + buttonValue,
+            //         type: 'Delete'                                     
+            //     });
+            // selectionTr.remove();            
         });
 
     </script>
