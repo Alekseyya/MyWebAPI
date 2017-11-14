@@ -86,8 +86,8 @@
         
         
         var promise = new Promise((resolve, reject) => {
-            $(document).ready(getClientsInList);
-                function getClientsInList() {
+
+                $(document).ready(function(){
                     $.getJSON("api/values/get",
                         function (data) {
                             $('#listClients').empty();
@@ -96,13 +96,13 @@
                                 var newRowContent = val.FirstName + " " + val.LastName;
 
                                 $("<li>" + newRowContent + "</li>").appendTo($('#listClients'));
-
+                                
                             });
                             resolve("result");
                         });
-                }
-                
+                });
             }); 
+
                 promise
                         .then(
                         result => {
@@ -113,7 +113,7 @@
                             // вторая функция - запустится при вызове reject
                             alert("Rejected: " + error); // error - аргумент reject
                         }  ); 
-
+            
 
                         function updatePaggination() {
                                 $(document).ready(function () {
