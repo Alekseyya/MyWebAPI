@@ -21,8 +21,7 @@
                     <div class="list-clients__ul">
                         <ul id="listClients"></ul>
                     </div>
-                    <div class="list-clients__pagination">
-                            <ul id="pagination-demo" class="pagination-sm"></ul>  
+                    <div class="list-clients__pagination">                            
                     </div>
                 </div>
 
@@ -42,7 +41,7 @@
                         <input type="text" name="LastName" class="add__lastName">
                     </div>
                     <div>
-                        <input type="submit"  value="Submit" />
+                        <input type="submit" onclick="AddClient()" value="Submit" />
                     </div>
                 </form>       
         </div>
@@ -54,61 +53,57 @@
     <script type="text/javascript">
 
     
-    var TotalPage;
-    var VisiblePages;
+   
     
     $(document).ready(function(){
         UpdatePromice();
-    });
+    });    
 
-    function UpdatePromice() {
-           var promice = new Promise(function (resolve, reject) {
-                    $(document).ready(function () {
-                        $.getJSON("api/values/get",
-                            function (data) {
-                                $('#listClients').empty();
+    function UpdatePromice() {         
+        var promice = new Promise(function (resolve, reject) {
+            $(document).ready(function () {
+                $.getJSON("api/values/get",
+                    function (data) {
+                        $('#listClients').empty();
 
-                                $.each(data, function (key, val) {
-                                    var newFirstNameLi = '<li class="col-md-1" id="FirstNameLi">' + val.FirstName + '</li>';
-                                    var newLastNameLi = '<li class="col-md-1" id="LastNameLi">' + val.LastName + '</li>';
-                                    var removeSpan = '<span class="glyphicon glyphicon-remove col-md-1"></span>';
-                                    var newInput = '<input type="button" value="ChageColor" id="' + key + '" onclick="ChangeColor(this.id)" class="ui-table__button col-md-1">';
-                                    var newDiv = '<div class="ui-table__item row">' + newFirstNameLi + newLastNameLi +
-                                        removeSpan + newInput + '</div>'
+                        $.each(data, function (key, val) {
+                            var newFirstNameLi = '<li class="col-md-1" id="FirstNameLi">' + val.FirstName + '</li>';
+                            var newLastNameLi = '<li class="col-md-1" id="LastNameLi">' + val.LastName + '</li>';
+                            var removeSpan = '<span class="glyphicon glyphicon-remove col-md-1"></span>';
+                            var newInput = '<input type="button" value="ChageColor" id="' + key + '" onclick="ChangeColor(this.id)" class="ui-table__button col-md-1">';
+                            var newDiv = '<div class="ui-table__item row">' + newFirstNameLi + newLastNameLi +
+                                removeSpan + newInput + '</div>'
 
 
-                                    $(newDiv).appendTo($('#listClients'));
+                            $(newDiv).appendTo($('#listClients'));
 
-                                });
-                                resolve("result");
-                            });
+                        });
+                        resolve("result");
                     });
+            });
 
-                });
-                promice
-                        .then(
-                        result => {                           
-                            CreatePagination();
-                            alert("Fulfilled: " + "Complete");
-                        },
-                        error => {
-                            alert("Rejected: " + error);
-                        }); 
-            }
+        });
+        promice
+            .then(
+            result => {
+                CreatePagination();
+                alert("Fulfilled: " + "Complete");
+            },
+            error => {
+                alert("Rejected: " + error);
+            });
+    }
 
     function CreatePagination() {
-            $('.list-clients__pagination').children('input[id="current_page"]').remove();
-            $('.list-clients__pagination').children('input[id="show_per_page"]').remove();
+            $('.list-clients__pagination').empty();            
+            // $('.list-clients__pagination').children('input[id="current_page"]').remove();
+            // $('.list-clients__pagination').children('input[id="show_per_page"]').remove();
+            
             var showClientsOnPage = 5;
             var numberOfClients = $('#listClients .ui-table__item').children('li[id="FirstNameLi"]').size();
             var numberOfPages = Math.ceil(numberOfClients / showClientsOnPage);
 
-            TotalPage = numberOfClients;
-            VisiblePages = 5;
-
-            // $('#listClients').children().css('display', 'none');
-            // $('#listClients').children().slice(0, showClientsOnPage).css('display', 'block');
-
+            $('.list-clients__pagination').append('<ul id="pagination-demo" class="pagination-sm"></ul>');
             $('.list-clients__pagination').append('<input id=current_page type=hidden><input id=show_per_page type=hidden>');
             $('#current_page').val(0);
             $('#show_per_page').val(showClientsOnPage);
@@ -163,18 +158,25 @@
 
             children.css("background-color", "rgb(" + colorR + "," + colorG + "," + colorB + ")")            
         }
-        
-       
-        $("#form1").submit(function () {
-            $.post('api/values/addclient', $('#form1').serialize(),
-                "json"
-            );
-            UpdatePromice();
-        });  
+        function AddClient(){             
+            var promice = new Promise(function (resolve, reject) {
+            $(document).ready(function () {
+                $.post('api/values/addclient', $('#form1').serialize(),
+                    "json"
+                ); 
+                resolve("result");
+            });
 
-        
-         
-        
+        });
+        promice
+            .then(
+            result => {
+                UpdatePromice();                
+            },
+            error => {
+                alert("Rejected: " + error);
+            });
+        } 
     </script>   
 </body>
 </html>
