@@ -51,17 +51,12 @@ namespace MyWebAPI.Api.Controllers
             }
         }
 
-        [HttpPost]
-        public void DeleteClient([FromBody]string id)
+        [HttpDelete]
+        public void DeleteClient(Client client)
         {
-            var aa = 0;
+            var newClient = Mapper.Map<Client, ClientContract>(client);
+            _service.DeleteClient(newClient);
         }
-
-        //[HttpPost]
-        //public void DeleteClient([FromBody]string firstName)
-        //{
-        //    var aa = 0;
-        //}
 
         [HttpPut]
         public void Put(int id, [FromBody]string value)
@@ -69,12 +64,12 @@ namespace MyWebAPI.Api.Controllers
         }
 
         [HttpDelete]
-        public void Delete(int id)
+        public void DeleteClientById(int id)
         {
             var client = _service.GetClientById(id);
             if (client != null)
             {
-                _service.DeleteClient(id);
+                _service.DeleteClientById(id);
             }
         }
     }

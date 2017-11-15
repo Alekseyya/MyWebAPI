@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using MyWebAPI.BL.ModelsContract;
 using MyWebAPI.BL.Services.Intefaces;
 using MyWebAPI.DL.Entities;
@@ -28,7 +30,22 @@ namespace MyWebAPI.BL.Services
             _unitOfWork.ClientRepository.Create(clientTmp);
         }
 
+        public void DeleteClient(ClientContract client)
+        {
+            var findClient = _unitOfWork.ClientRepository.GetAll().FirstOrDefault(cl =>
+                cl.FirstName == client.FirstName && cl.LastName == client.LastName);
+            if (findClient != null)
+            {
+                _unitOfWork.ClientRepository.Delete(findClient.Id);
+            }
+        }
+
         public void DeleteClient(int id)
+        {
+            _unitOfWork.ClientRepository.Delete(id);
+        }
+
+        public void DeleteClientById(int id)
         {
             _unitOfWork.ClientRepository.Delete(id);
         }

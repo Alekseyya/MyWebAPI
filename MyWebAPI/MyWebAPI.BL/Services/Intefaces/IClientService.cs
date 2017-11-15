@@ -13,6 +13,7 @@ namespace MyWebAPI.BL.Services.Intefaces
 
         void UpdateClient(ClientContract client);
 
-        void DeleteClient(int id);
+        void DeleteClientById(int id);
+        void DeleteClient(ClientContract client);
     }
 }
