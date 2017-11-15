@@ -52,9 +52,6 @@
     
     <script type="text/javascript">
 
-    
-   
-    
     $(document).ready(function(){
         UpdatePromice();
     });    
@@ -69,8 +66,8 @@
                         $.each(data, function (key, val) {
                             var newFirstNameLi = '<li class="col-md-1" id="FirstNameLi">' + val.FirstName + '</li>';
                             var newLastNameLi = '<li class="col-md-1" id="LastNameLi">' + val.LastName + '</li>';
-                            var removeSpan = '<span class="glyphicon glyphicon-remove col-md-1"></span>';
-                            var newInput = '<input type="button" value="ChageColor" id="' + key + '" onclick="ChangeColor(this.id)" class="ui-table__button col-md-1">';
+                            var removeSpan = '<span type="remove" class="glyphicon glyphicon-remove col-md-1"></span>';
+                            var newInput = '<span value="ChageColor" id="' + key + '" onclick="ChangeColor(this.id)" class="col-md-1 glyphicon glyphicon-tint"></span>';
                             var newDiv = '<div class="ui-table__item row">' + newFirstNameLi + newLastNameLi +
                                 removeSpan + newInput + '</div>'
 
@@ -99,7 +96,7 @@
             // $('.list-clients__pagination').children('input[id="current_page"]').remove();
             // $('.list-clients__pagination').children('input[id="show_per_page"]').remove();
             
-            var showClientsOnPage = 5;
+            var showClientsOnPage = 10;
             var numberOfClients = $('#listClients .ui-table__item').children('li[id="FirstNameLi"]').size();
             var numberOfPages = Math.ceil(numberOfClients / showClientsOnPage);
 
@@ -131,7 +128,7 @@
             $('#listClients').children().css('display', 'none').slice(numberOfFirstClientOnPage, numberOfEndClientOnPage).css('display', 'flex');        
     }
 
-        $('#listClients').on('click', 'span', function (e) {            
+        $('#listClients').on('click', 'span[type="remove"]', function (e) {            
             var selectionDiv =$(this).closest('div');            
             var firstNameLi = selectionDiv.children('li[id="FirstNameLi"]').text();
             var lastNameLi = selectionDiv.children('li[id="LastNameLi"]').text();
@@ -148,7 +145,7 @@
         });          
 
     function ChangeColor(buttonId) {            
-            var parentButton = $('#listClients input[id='+ buttonId + ' ]').parent();
+            var parentButton = $('#listClients span[id='+ buttonId + ' ]').parent();
             console.log(parentButton);
             var children = parentButton.children("li");
 
