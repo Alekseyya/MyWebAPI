@@ -45,27 +45,7 @@
                     <ul id=listClients></ul>
                 </div>
                 <div class="list-clients__pagination"></div>
-            </div>
-            <div class="test-ul">
-                <ul id="ui-table">
-                    <div class="ui-table__item">
-                        <li>Heeel</li>
-                        <input type="button" value="ChageColor" class="ui-table__button">
-                    </div>
-                    <div class="ui-table__item">
-                        <li>H23</li>
-                        <input type="button" value="ChageColor" class="ui-table__button">
-                    </div>
-                    <div class="ui-table__item">
-                        <li>11</li>
-                        <input type="button" value="ChageColor" class="ui-table__button">
-                    </div>
-                    <div class="ui-table__item">
-                        <li>33</li>
-                        <input type="button" value="ChageColor" class="ui-table__button">
-                    </div>
-                </ul>
-            </div>
+            </div>            
         </div>
     </div>
     
@@ -73,23 +53,40 @@
 
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
     <script type="text/javascript">
-        function getClients() {
-            $.getJSON("api/values",
-                function (data) {
-                    $('#clients').empty();
 
-                    $.each(data, function (key, val) {
-                        var newRowContent = "<td id='firstName'>" + val.FirstName + 
-                                            "</td><td id='lastName'>" + val.LastName + "</td>"
-                            + "<td> <input type='button' id='deleteButton' value= " + key + ">" + "</input>";
 
-                        $("<tr>" + newRowContent + "</tr>").appendTo($('#clients'));
 
-                    });
+
+    $(document).ready(getClients);
+
+    function getClients() {
+        $.getJSON("api/values",
+            function (data) {
+                $('#clients').empty();
+
+                $.each(data, function (key, val) {
+                    var newRowContent = "<td id='firstName'>" + val.FirstName +
+                        "</td><td id='lastName'>" + val.LastName + "</td>"
+                        + "<td> <input type='button' id='deleteButton' value= " + key + ">" + "</input>";
+
+                    $("<tr>" + newRowContent + "</tr>").appendTo($('#clients'));
+
                 });
-        }
+            });
+    }
 
-        $(document).ready(getClients);
+    function ChangeColor(buttonId) {            
+            var parentButton = $('#listClients input[id='+ buttonId + ' ]').parent();
+            console.log(parentButton);
+            var children = parentButton.children("li");
+
+            var colorR = Math.floor((Math.random() * 256));
+            var colorG = Math.floor((Math.random() * 256));
+            var colorB = Math.floor((Math.random() * 256));
+
+            children.css("background-color", "rgb(" + colorR + "," + colorG + "," + colorB + ")")            
+        }
+        
 
         $("#form1").submit(function () {
             $.post('api/values/addclient', $('#form1').serialize(),
@@ -112,8 +109,6 @@
             selectionTr.remove();            
         });  
 
-        
-        
         var promise = new Promise((resolve, reject) => {
 
             $(document).ready(function () {
@@ -123,14 +118,19 @@
 
                         $.each(data, function (key, val) {
                             var newRowContent = val.FirstName + " " + val.LastName;
+                            var newLi = "<li>" + newRowContent + "</li>";
+                            var newInput = '<input type="button" value="ChageColor" id="'+ key + '" onclick="ChangeColor(this.id)" class="ui-table__button">'
+                            var newDiv = '<div class="ui-table__item">'+ newLi + newInput + '</div>'
+                            
 
-                            $("<li>" + newRowContent + "</li>").appendTo($('#listClients'));
+                            $(newDiv).appendTo($('#listClients'));
 
                         });
                         resolve("result");
                     });
             });
-        }); 
+        });         
+        
 
         promise
             .then(
@@ -147,7 +147,7 @@
     function updatePaggination() {
         $(document).ready(function () {
             var show_per_page = 5;
-            var number_of_items = $('#listClients').children('li').size();
+            var number_of_items = $('#listClients .ui-table__item').children('li').size();
             var number_of_pages = Math.ceil(number_of_items / show_per_page);
 
             console.log(number_of_items);
@@ -171,7 +171,7 @@
             $('.controls .page:first').addClass('active');
 
             $('#listClients').children().css('display', 'none');
-            $('#listClients').children().slice(0, show_per_page).css('display', 'block');
+            $('#listClients').children().slice(0, show_per_page).css('display', 'flex'); //Вот тут поменял
 
         });
     }
@@ -180,7 +180,7 @@
         var show_per_page = parseInt($('#show_per_page').val(), 0);
         start_from = page_num * show_per_page;
         end_on = start_from + show_per_page;
-        $('#listClients').children().css('display', 'none').slice(start_from, end_on).css('display', 'block');
+        $('#listClients').children().css('display', 'none').slice(start_from, end_on).css('display', 'flex');
         $('.page[longdesc=' + page_num + ']').addClass('active').siblings('.active').removeClass('active');
         $('#current_page').val(page_num);
     }
