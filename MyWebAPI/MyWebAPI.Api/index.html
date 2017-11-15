@@ -53,11 +53,48 @@
     
     <script type="text/javascript">
 
+    
+    var TotalPage;
+    var VisiblePages;
+    
     $(document).ready(function(){
         UpdatePromice();
     });
-    var TotalPage;
-    var VisiblePages; 
+
+    function UpdatePromice() {
+           var promice = new Promise(function (resolve, reject) {
+                    $(document).ready(function () {
+                        $.getJSON("api/values/get",
+                            function (data) {
+                                $('#listClients').empty();
+
+                                $.each(data, function (key, val) {
+                                    var newFirstNameLi = '<li class="col-md-1" id="FirstNameLi">' + val.FirstName + '</li>';
+                                    var newLastNameLi = '<li class="col-md-1" id="LastNameLi">' + val.LastName + '</li>';
+                                    var removeSpan = '<span class="glyphicon glyphicon-remove col-md-1"></span>';
+                                    var newInput = '<input type="button" value="ChageColor" id="' + key + '" onclick="ChangeColor(this.id)" class="ui-table__button col-md-1">';
+                                    var newDiv = '<div class="ui-table__item row">' + newFirstNameLi + newLastNameLi +
+                                        removeSpan + newInput + '</div>'
+
+
+                                    $(newDiv).appendTo($('#listClients'));
+
+                                });
+                                resolve("result");
+                            });
+                    });
+
+                });
+                promice
+                        .then(
+                        result => {                           
+                            CreatePagination();
+                            alert("Fulfilled: " + "Complete");
+                        },
+                        error => {
+                            alert("Rejected: " + error);
+                        }); 
+            }
 
     function CreatePagination() {
             $('.list-clients__pagination').children('input[id="current_page"]').remove();
@@ -137,40 +174,7 @@
 
         
          
-        function UpdatePromice() {
-           var promice = new Promise(function (resolve, reject) {
-                    $(document).ready(function () {
-                        $.getJSON("api/values/get",
-                            function (data) {
-                                $('#listClients').empty();
-
-                                $.each(data, function (key, val) {
-                                    var newFirstNameLi = '<li class="col-md-1" id="FirstNameLi">' + val.FirstName + '</li>';
-                                    var newLastNameLi = '<li class="col-md-1" id="LastNameLi">' + val.LastName + '</li>';
-                                    var removeSpan = '<span class="glyphicon glyphicon-remove col-md-1"></span>';
-                                    var newInput = '<input type="button" value="ChageColor" id="' + key + '" onclick="ChangeColor(this.id)" class="ui-table__button col-md-1">';
-                                    var newDiv = '<div class="ui-table__item row">' + newFirstNameLi + newLastNameLi +
-                                        removeSpan + newInput + '</div>'
-
-
-                                    $(newDiv).appendTo($('#listClients'));
-
-                                });
-                                resolve("result");
-                            });
-                    });
-
-                });
-                promice
-                        .then(
-                        result => {                           
-                            CreatePagination();
-                            alert("Fulfilled: " + "Complete");
-                        },
-                        error => {
-                            alert("Rejected: " + error);
-                        }); 
-            }
+        
     </script>   
 </body>
 </html>
