@@ -60,6 +60,8 @@
     var VisiblePages; 
 
     function CreatePagination() {
+            $('.list-clients__pagination').children('input[id="current_page"]').remove();
+            $('.list-clients__pagination').children('input[id="show_per_page"]').remove();
             var showClientsOnPage = 5;
             var numberOfClients = $('#listClients .ui-table__item').children('li[id="FirstNameLi"]').size();
             var numberOfPages = Math.ceil(numberOfClients / showClientsOnPage);
@@ -70,7 +72,7 @@
             // $('#listClients').children().css('display', 'none');
             // $('#listClients').children().slice(0, showClientsOnPage).css('display', 'block');
 
-            $('.list-clients__pagination').append('<div class=controls></div><input id=current_page type=hidden><input id=show_per_page type=hidden>');
+            $('.list-clients__pagination').append('<input id=current_page type=hidden><input id=show_per_page type=hidden>');
             $('#current_page').val(0);
             $('#show_per_page').val(showClientsOnPage);
             
