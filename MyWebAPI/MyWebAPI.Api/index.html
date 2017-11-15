@@ -8,39 +8,68 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <div class="table">
-        <table id="myTable">
-            <thead>
-                <tr>
-                    <th>FirstName</th>
-                    <th>LastName</th>
-                    <th>Ссылка</th>
-                </tr>
-            </thead>
-            <tbody id="clients"></tbody>
-        </table>        
+    <div class="wrapper">
+        <div class="wrapper-body">
+            <div class="table">
+                <table id="myTable">
+                    <thead>
+                        <tr>
+                            <th>FirstName</th>
+                            <th>LastName</th>
+                            <th>Ссылка</th>
+                        </tr>
+                    </thead>
+                    <tbody id="clients"></tbody>
+                </table>
+            </div>
+            <button onclick="getClients()">Обновить</button>
+            <form id="form1" method="post" action="api/values/addclient">
+                <div>
+                    <label for="status">Имя</label>
+                </div>
+                <div>
+                    <input type="text" name="FirstName" class="add__firstName">
+                </div>
+                <div>
+                    <label for="status">Фамилия</label>
+                </div>
+                <div>
+                    <input type="text" name="LastName" class="add__lastName">
+                </div>
+                <div>
+                    <input type="submit" value="Submit" />
+                </div>
+            </form>
+            <div class="list-clients">
+                <div class="list-clients__ul">
+                    <ul id=listClients></ul>
+                </div>
+                <div class="list-clients__pagination"></div>
+            </div>
+            <div class="test-ul">
+                <ul id="ui-table">
+                    <div class="ui-table__item">
+                        <li>Heeel</li>
+                        <input type="button" value="ChageColor" class="ui-table__button">
+                    </div>
+                    <div class="ui-table__item">
+                        <li>H23</li>
+                        <input type="button" value="ChageColor" class="ui-table__button">
+                    </div>
+                    <div class="ui-table__item">
+                        <li>11</li>
+                        <input type="button" value="ChageColor" class="ui-table__button">
+                    </div>
+                    <div class="ui-table__item">
+                        <li>33</li>
+                        <input type="button" value="ChageColor" class="ui-table__button">
+                    </div>
+                </ul>
+            </div>
+        </div>
     </div>
-    <button  onclick="getClients()">Обновить</button>
-    <form id="form1" method="post" action="api/values/addclient">
-        <div>
-            <label for="status">Имя</label>
-        </div>
-        <div>
-            <input type="text" name="FirstName" class="add__firstName">
-        </div>
-        <div>
-            <label for="status">Фамилия</label>
-        </div>
-        <div>
-            <input type="text" name="LastName" class="add__lastName">
-        </div>
-        <div>
-            <input type="submit" value="Submit" />
-        </div>
-    </form>
-
-
-    <ul id=listClients></ul>  
+    
+     
 
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
     <script type="text/javascript">
@@ -87,88 +116,89 @@
         
         var promise = new Promise((resolve, reject) => {
 
-                $(document).ready(function(){
-                    $.getJSON("api/values/get",
-                        function (data) {
-                            $('#listClients').empty();
+            $(document).ready(function () {
+                $.getJSON("api/values/get",
+                    function (data) {
+                        $('#listClients').empty();
 
-                            $.each(data, function (key, val) {
-                                var newRowContent = val.FirstName + " " + val.LastName;
+                        $.each(data, function (key, val) {
+                            var newRowContent = val.FirstName + " " + val.LastName;
 
-                                $("<li>" + newRowContent + "</li>").appendTo($('#listClients'));
-                                
-                            });
-                            resolve("result");
+                            $("<li>" + newRowContent + "</li>").appendTo($('#listClients'));
+
                         });
-                });
-            }); 
+                        resolve("result");
+                    });
+            });
+        }); 
 
-                promise
-                        .then(
-                        result => {
-                            updatePaggination();
-                            alert("Fulfilled: " + "Ввыполнилось успешно"); // result - аргумент resolve
-                        },
-                        error => {
-                            // вторая функция - запустится при вызове reject
-                            alert("Rejected: " + error); // error - аргумент reject
-                        }  ); 
+        promise
+            .then(
+            result => {
+                updatePaggination();
+                alert("Fulfilled: " + "Ввыполнилось успешно"); // result - аргумент resolve
+            },
+            error => {
+                // вторая функция - запустится при вызове reject
+                alert("Rejected: " + error); // error - аргумент reject
+            }); 
             
 
-                        function updatePaggination() {
-                                $(document).ready(function () {
-                                    var show_per_page = 5;
-                                    var number_of_items = $('#listClients').children('li').size();
-                                    var number_of_pages = Math.ceil(number_of_items / show_per_page);
+    function updatePaggination() {
+        $(document).ready(function () {
+            var show_per_page = 5;
+            var number_of_items = $('#listClients').children('li').size();
+            var number_of_pages = Math.ceil(number_of_items / show_per_page);
 
-                                    console.log(number_of_items);
-                                    console.log(number_of_pages);
+            console.log(number_of_items);
+            console.log(number_of_pages);
 
-                                    $('body').append('<div class=controls></div><input id=current_page type=hidden><input id=show_per_page type=hidden>');
-                                    $('#current_page').val(0);
-                                    $('#show_per_page').val(show_per_page);
+            $('.list-clients__pagination').append('<div class=controls></div><input id=current_page type=hidden><input id=show_per_page type=hidden>');
+            $('#current_page').val(0);
+            $('#show_per_page').val(show_per_page);
 
-                                    var navigation_html = '<a class="prev" onclick="previous()">Prev</a>';
-                                    var current_link = 0;
-                                    while (number_of_pages > current_link) {
-                                        navigation_html += '<a class="page" onclick="go_to_page(' + current_link + ')" longdesc="' +
-                                            current_link + '">' + (current_link + 1) + '</a>';
-                                        current_link++;
-                                    }
-                                    navigation_html += '<a class="next" onclick="next()">Next</a>';
+            var navigation_html = '<input type="button" class="prev" value="Prev" onclick="previous()"></input>';
+            var current_link = 0;
+            while (number_of_pages > current_link) {
+                navigation_html += '<input type="button" class="page" value=" ' + (current_link + 1) + ' " onclick="go_to_page('
+                                     + current_link + ')" longdesc="' +
+                    current_link + '"> </input>';
+                current_link++;
+            }
+            navigation_html += '<input type="button" class="next" value="Next" onclick="next()"></input>';
 
-                                    $('.controls').html(navigation_html);
-                                    $('.controls .page:first').addClass('active');
+            $('.controls').html(navigation_html);
+            $('.controls .page:first').addClass('active');
 
-                                    $('#listClients').children().css('display', 'none');
-                                    $('#listClients').children().slice(0, show_per_page).css('display', 'block');
+            $('#listClients').children().css('display', 'none');
+            $('#listClients').children().slice(0, show_per_page).css('display', 'block');
 
-                                });                                
-                            }
+        });
+    }
 
-                            function go_to_page(page_num) {                                    
-                                    var show_per_page = parseInt($('#show_per_page').val(), 0);
-                                    start_from = page_num * show_per_page;
-                                    end_on = start_from + show_per_page;
-                                    $('#listClients').children().css('display', 'none').slice(start_from, end_on).css('display', 'block');
-                                    $('.page[longdesc=' + page_num + ']').addClass('active').siblings('.active').removeClass('active');
-                                    $('#current_page').val(page_num);
-                                }
+    function go_to_page(page_num) {
+        var show_per_page = parseInt($('#show_per_page').val(), 0);
+        start_from = page_num * show_per_page;
+        end_on = start_from + show_per_page;
+        $('#listClients').children().css('display', 'none').slice(start_from, end_on).css('display', 'block');
+        $('.page[longdesc=' + page_num + ']').addClass('active').siblings('.active').removeClass('active');
+        $('#current_page').val(page_num);
+    }
 
-                                function previous() {
-                                    new_page = parseInt($('#current_page').val(), 0) - 1;
-                                    if ($('.active').prev('.page').length == true) {
-                                        go_to_page(new_page);
-                                    }
-                                }
+    function previous() {
+        new_page = parseInt($('#current_page').val(), 0) - 1;
+        if ($('.active').prev('.page').length == true) {
+            go_to_page(new_page);
+        }
+    }
 
-                                function next() {
-                                    new_page = parseInt($('#current_page').val(), 0) + 1;
+    function next() {
+        new_page = parseInt($('#current_page').val(), 0) + 1;
 
-                                    if ($('.active').next('.page').length == true) {
-                                        go_to_page(new_page);
-                                    }
-                                }
+        if ($('.active').next('.page').length == true) {
+            go_to_page(new_page);
+        }
+    }
 
     </script>   
 </body>
