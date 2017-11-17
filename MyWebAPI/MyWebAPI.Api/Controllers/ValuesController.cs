@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using AutoMapper;
 using MyWebAPI.Api.Models;
 using MyWebAPI.BL.ModelsContract;
@@ -12,6 +13,7 @@ using Ninject.Web.WebApi.Filter;
 
 namespace MyWebAPI.Api.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ValuesController : ApiController
     {
         private readonly IClientService _service;
@@ -51,7 +53,7 @@ namespace MyWebAPI.Api.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpPost]
         public void DeleteClient(Client client)
         {
             var newClient = Mapper.Map<Client, ClientContract>(client);
